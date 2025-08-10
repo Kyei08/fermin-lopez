@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fermin Lopez - FC Barcelona Rising Star</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #DC143C 0%, #FF1744 50%, #C62828 100%);
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Elements */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 50px 50px;
+            animation: float 20s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        .main-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: url('Fermin.png') center/cover no-repeat;
+            background-size: 120% 120%;
+            animation: breathe 8s ease-in-out infinite, parallaxBg 0.1s ease-out;
+            z-index: -1;
+            filter: brightness(0.3) contrast(1.2);
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Particle System */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            background: linear-gradient(45deg, #fff, #004D98, #fff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 2s ease-out 1s forwards;
+        }
+
+        .jersey-number {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            font-size: 15rem;
+            font-weight: 900;
+            opacity: 0.1;
+            color: #004D98;
+            animation: pulse 4s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.2; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            animation: slideDown 1s ease-out 0.5s both;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #004D98;
+            transform: translateY(-2px);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #004D98;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: slideInFromBottom 1s ease-out;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #004D98, #fff, #004D98);
+            border-radius: 2px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 77, 152, 0.2), rgba(255, 255, 255, 0.1));
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 77, 152, 0.3);
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #004D98;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Biography */
+        .bio-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .bio-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .bio-highlights {
+            background: rgba(0, 77, 152, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #004D98;
+        }
+
+        .bio-highlights ul {
+            list-style: none;
+        }
+
+        .bio-highlights li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .bio-highlights li::before {
+            content: '⚽';
+            position: absolute;
+            left: 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Career Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #004D98, #fff, #004D98);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+            animation: timelineSlide 1s ease-out;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background: #004D98;
+            border: 4px solid #fff;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(0, 77, 152, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -16px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: rgba(0, 77, 152, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(0, 77, 152, 0.5); }
+            to { box-shadow: 0 0 30px rgba(0, 77, 152, 0.8), 0 0 40px rgba(0, 77, 152, 0.3); }
+        }
+
+        @keyframes timelineSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Interactive Elements */
+        .interactive-card {
+            background: linear-gradient(135deg, rgba(0, 77, 152, 0.3), rgba(255, 255, 255, 0.1));
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .interactive-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 77, 152, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .jersey-number {
+                font-size: 8rem;
+                top: 5%;
+                right: 5%;
+            }
+            
+            .bio-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid #fff;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent #fff transparent transparent;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-container"></div>
+    <div class="main-bg" id="mainBg"></div>
+    
+    <!-- Particle System -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#stats">Stats</a></li>
+            <li><a href="#biography">Biography</a></li>
+            <li><a href="#career">Career</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header Section -->
+    <header id="home">
+        <div class="jersey-number">16</div>
+        <div class="hero-content">
+            <h1 class="hero-title">FERMIN LOPEZ</h1>
+            <p class="hero-subtitle">FC Barcelona Rising Star</p>
+        </div>
+    </header>
+
+    <!-- Player Stats Section -->
+    <section class="section fade-in" id="stats">
+        <h2>Player Statistics</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">21</div>
+                <div class="stat-label">Age</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Jersey Number</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">1.74m</div>
+                <div class="stat-label">Height</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">CM</div>
+                <div class="stat-label">Position</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">15+</div>
+                <div class="stat-label">Appearances</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">5+</div>
+                <div class="stat-label">Goals</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biography Section -->
+    <section class="section fade-in" id="biography">
+        <h2>Biography</h2>
+        <div class="bio-content">
+            <div class="bio-text">
+                <p>Fermín López Marín, born May 11, 2003, in El Campillo, Spain, is a dynamic midfielder who represents the future of FC Barcelona. His journey from the youth academies to the first team showcases dedication, talent, and the classic Barcelona DNA.</p>
+                
+                <p>Known for his versatility, technical ability, and vision on the field, López has quickly established himself as one of the most promising young talents in Spanish football. His ability to play multiple positions and contribute both defensively and offensively makes him a valuable asset to any team.</p>
+            </div>
+            
+            <div class="bio-highlights">
+                <h3>Key Highlights</h3>
+                <ul>
+                    <li>La Masia graduate</li>
+                    <li>Spain U21 international</li>
+                    <li>Versatile midfielder</li>
+                    <li>Technical excellence</li>
+                    <li>Rising Barcelona star</li>
+                    <li>Olympic Games participant</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Timeline -->
+    <section class="section fade-in" id="career">
+        <h2>Career Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2013-2021</h3>
+                    <h4>La Masia Academy</h4>
+                    <p>Developed through Barcelona's renowned youth system, honing technical skills and understanding of the game.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2021-2022</h3>
+                    <h4>Barcelona B</h4>
+                    <p>Made his debut with the reserve team, showcasing his potential in Spain's Segunda División B.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2022-2023</h3>
+                    <h4>Linares Deportivo (Loan)</h4>
+                    <p>Gained valuable first-team experience on loan, playing regularly and developing match fitness.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2023-Present</h3>
+                    <h4>FC Barcelona First Team</h4>
+                    <p>Broke into the first team squad and became a regular contributor under Xavi Hernández.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="section fade-in" id="achievements">
+        <h2>Achievements & Recognition</h2>
+        
+        <div class="interactive-card">
+            <h3>🏆 Club Achievements</h3>
+            <p>La Liga appearances, Copa del Rey contributions, and Champions League experience with FC Barcelona.</p>
+        </div>
+        
+        <div class="interactive-card">
+            <h3>🇪🇸 International Career</h3>
+            <p>Represented Spain at various youth levels, including U21 tournaments and Olympic Games participation.</p>
+        </div>
+        
+        <div class="interactive-card">
+            <h3>⭐ Individual Recognition</h3>
+            <p>Rising star awards, La Masia graduate recognition, and breakthrough player nominations.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      
+        <p>&copy; 2025 Fermín López Fan Page. All rights reserved.</p>
+        <p>Més que un club - More than a club</p>
+    </footer>
+
+    <script>
+        // Particle System
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numParticles = 50;
+            
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = (Math.random() * 4 + 1) + 'px';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Parallax Effect
+        function handleParallax() {
+            const mainBg = document.getElementById('mainBg');
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.5;
+            
+            mainBg.style.transform = `translateY(${parallax}px) scale(1.1)`;
+        }
+
+        // Mouse Move Parallax
+        function handleMouseMove(e) {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            const mainBg = document.getElementById('mainBg');
+            
+            const moveX = (mouseX - 0.5) * 30;
+            const moveY = (mouseY - 0.5) * 30;
+            
+            mainBg.style.backgroundPosition = `${50 + moveX}% ${50 + moveY}%`;
+        }
+
+        // Scroll Animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation
+        function initSmoothScroll() {
+            const links = document.querySelectorAll('nav a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Interactive card effects
+        function initInteractiveCards() {
+            const cards = document.querySelectorAll('.interactive-card, .stat-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Counter animation for stats
+        function animateCounters() {
+            const statValues = document.querySelectorAll('.stat-value');
+            
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const text = target.textContent;
+                        
+                        if (text.includes('+') && text !== 'CM') {
+                            const num = parseInt(text);
+                            let current = 0;
+                            const increment = num / 30;
+                            
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= num) {
+                                    target.textContent = text;
+                                    clearInterval(timer);
+                                } else {
+                                    target.textContent = Math.floor(current) + '+';
+                                }
+                            }, 50);
+                        }
+                    }
+                });
+            });
+            
+            statValues.forEach(stat => observer.observe(stat));
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initSmoothScroll();
+            initInteractiveCards();
+            animateCounters();
+            handleScrollAnimations();
+        });
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            handleParallax();
+            handleScrollAnimations();
+        });
+
+        window.addEventListener('mousemove', handleMouseMove);
+
+        // Add resize handler
+        window.addEventListener('resize', () => {
+            handleParallax();
+        });
+
+        // Performance optimization: throttle scroll events
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    handleParallax();
+                    handleScrollAnimations();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestTick);
+    </script>
+</body>
+</html>
