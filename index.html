@@ -468,36 +468,228 @@
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
+            /* Reduce particle count for performance */
+            .particles {
+                opacity: 0.5;
+            }
+            
+            /* Disable heavy animations */
+            .main-bg {
+                animation: none;
+                background-size: cover;
+                transform: none !important;
+                background-position: center !important;
+            }
+            
+            .bg-container {
+                animation: none;
+            }
+            
+            /* Hero section */
             .hero-title {
-                font-size: 3rem;
+                font-size: clamp(2rem, 12vw, 4rem);
+                margin-bottom: 0.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: clamp(1rem, 6vw, 1.8rem);
+                margin-bottom: 1rem;
             }
             
             .jersey-number {
-                font-size: 8rem;
-                top: 5%;
-                right: 5%;
+                font-size: clamp(6rem, 20vw, 10rem);
+                top: 2%;
+                right: 2%;
+                opacity: 0.08;
             }
             
+            /* Navigation */
+            nav {
+                top: 1rem;
+                padding: 0.5rem 1rem;
+                border-radius: 25px;
+                backdrop-filter: blur(5px);
+            }
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+            
+            /* Sections */
+            .section {
+                padding: 2.5rem 1rem;
+                margin-bottom: 1rem;
+                border-radius: 15px;
+            }
+            
+            .section h2 {
+                font-size: clamp(1.8rem, 8vw, 2.5rem);
+                margin-bottom: 1.5rem;
+            }
+            
+            /* Stats grid - single column on small screens */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                padding: 1.5rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .stat-card::before {
+                display: none; /* Remove shine effect for performance */
+            }
+            
+            .stat-card:hover {
+                transform: translateY(-5px) scale(1.02);
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+            
+            .stat-label {
+                font-size: 1rem;
+            }
+            
+            /* Biography */
             .bio-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
             
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
+            .bio-text {
+                font-size: 1rem;
+                line-height: 1.6;
             }
             
-            .timeline-item::before {
-                left: 60px;
-                border: medium solid #fff;
-                border-width: 10px 10px 10px 0;
-                border-color: transparent #fff transparent transparent;
+            .bio-highlights {
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
+            
+            /* Timeline - simplified mobile version */
+            .timeline::after {
+                left: 20px;
+                width: 4px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 10px;
+                margin-bottom: 1rem;
+            }
+            
+            .timeline-item::after {
+                left: 12px;
+                width: 16px;
+                height: 16px;
+                border: 3px solid #fff;
+            }
+            
+            .timeline-content {
+                padding: 1.5rem;
+                border-radius: 12px;
+            }
+            
+            .timeline-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .timeline-content h4 {
+                font-size: 1rem;
+                margin: 0.5rem 0;
+            }
+            
+            .timeline-content p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+            
+            /* Interactive cards */
+            .interactive-card {
+                padding: 2rem 1.5rem;
+                border-radius: 15px;
+                margin: 1.5rem 0;
+            }
+            
+            .interactive-card::before {
+                display: none; /* Remove shine effect */
+            }
+            
+            .interactive-card h3 {
+                font-size: 1.3rem;
+                margin-bottom: 1rem;
+            }
+            
+            .interactive-card p {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+            
+            /* Footer */
+            footer {
+                padding: 2rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Extra small screens */
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .hero-title {
+                font-size: clamp(1.8rem, 10vw, 3rem);
+            }
+            
+            .jersey-number {
+                font-size: clamp(4rem, 15vw, 8rem);
+                top: 1%;
+                right: 1%;
+            }
+            
+            nav ul {
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.5rem;
+            }
+            
+            .section {
+                padding: 2rem 0.8rem;
+            }
+            
+            .bio-highlights li::before {
+                animation: none; /* Disable bouncing animation */
+            }
+            
+            .timeline-item {
+                padding-left: 40px;
             }
             
             .timeline::after {
-                left: 31px;
+                left: 15px;
+            }
+            
+            .timeline-item::after {
+                left: 7px;
+                width: 14px;
+                height: 14px;
             }
         }
 
@@ -668,16 +860,16 @@
 
     <!-- Footer -->
     <footer>
-      
         <p>&copy; 2025 Fermín López Fan Page. All rights reserved.</p>
         <p>Més que un club - More than a club</p>
     </footer>
 
     <script>
-        // Particle System
+        // Particle System - Reduced for mobile
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const numParticles = 50;
+            const isMobile = window.innerWidth <= 768;
+            const numParticles = isMobile ? 15 : 50; // Reduce particles on mobile
             
             for (let i = 0; i < numParticles; i++) {
                 const particle = document.createElement('div');
@@ -690,8 +882,10 @@
             }
         }
 
-        // Parallax Effect
+        // Parallax Effect - Disabled on mobile
         function handleParallax() {
+            if (window.innerWidth <= 768) return; // Disable on mobile
+            
             const mainBg = document.getElementById('mainBg');
             const scrolled = window.pageYOffset;
             const parallax = scrolled * 0.5;
@@ -699,8 +893,10 @@
             mainBg.style.transform = `translateY(${parallax}px) scale(1.1)`;
         }
 
-        // Mouse Move Parallax
+        // Mouse Move Parallax - Disabled on mobile
         function handleMouseMove(e) {
+            if (window.innerWidth <= 768) return; // Disable on mobile
+            
             const mouseX = e.clientX / window.innerWidth;
             const mouseY = e.clientY / window.innerHeight;
             const mainBg = document.getElementById('mainBg');
@@ -797,6 +993,7 @@
             createParticles();
             initSmoothScroll();
             initInteractiveCards();
+            initTouchSupport(); // Add touch support
             animateCounters();
             handleScrollAnimations();
         });
@@ -807,7 +1004,10 @@
             handleScrollAnimations();
         });
 
-        window.addEventListener('mousemove', handleMouseMove);
+        // Only add mousemove listener on non-mobile devices
+        if (window.innerWidth > 768) {
+            window.addEventListener('mousemove', handleMouseMove);
+        }
 
         // Add resize handler
         window.addEventListener('resize', () => {
@@ -827,7 +1027,41 @@
             }
         }
 
+        // Add touch support for mobile interactions
+        function initTouchSupport() {
+            const cards = document.querySelectorAll('.interactive-card, .stat-card');
+            
+            cards.forEach(card => {
+                // Add touch feedback for mobile
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                    this.style.transition = 'all 0.2s ease';
+                });
+                
+                card.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    }, 150);
+                });
+            });
+        }
+
+        // Responsive particle recreation on resize
+        function handleResize() {
+            const particlesContainer = document.getElementById('particles');
+            particlesContainer.innerHTML = ''; // Clear existing particles
+            createParticles(); // Recreate with appropriate count
+            handleParallax(); // Reset parallax
+        }
+
         window.addEventListener('scroll', requestTick);
+        
+        // Add resize listener with debounce
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(handleResize, 250);
+        });
     </script>
 </body>
 </html>
